@@ -1,18 +1,28 @@
 {
-  "name": "keel",
-  "version": "0.1.0",
+  "name": "@ayantik2006/keel",
+  "version": "0.1.2",
   "description": "Command line interface for the Keel clone: authenticate, manage secrets, and run commands with secrets injected.",
-  "private": true,
   "type": "module",
-  "bin": { "keel": "dist/index.js" },
-  "files": ["dist", "README.md"],
-  "engines": { "node": ">=20" },
+  "bin": {
+    "keel": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/node": "^20",
     "typescript": "^5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

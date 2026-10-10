@@ -24,10 +24,30 @@ Security notes:
   Secret values are never put on a command line by this tool.
 `;
 
+/**
+ * Index where the child command begins. Normally that is the `--` separator,
+ * but Windows PowerShell can swallow `--` before it reaches us, so fall back to
+ * the first argument that is not one of our own options.
+ */
+function splitAt(argv: string[]): number {
+  const sep = argv.indexOf("--");
+  if (sep !== -1) return sep;
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    if (a === "--env") {
+      i++;
+      continue;
+    }
+    if (a.startsWith("-")) continue;
+    return i;
+  }
+  return argv.length;
+}
+
 export async function runCommandCli(argv: string[]): Promise<number> {
-  const split = argv.indexOf("--");
-  const own = split === -1 ? argv : argv.slice(0, split);
-  const command = split === -1 ? [] : argv.slice(split + 1);
+  const split = splitAt(argv);
+  const own = argv.slice(0, split);
+  const command = argv.slice(split === argv.length ? split : split + (argv[split] === "--" ? 1 : 0));
 
   const { values } = parseArgs({
     args: own,
