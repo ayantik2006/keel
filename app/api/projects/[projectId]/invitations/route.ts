@@ -142,13 +142,12 @@ export const POST = handler(async (req: Request, { params }: Ctx) => {
         expiresAt: invitation.expiresAt.toISOString(),
         expired: false,
       },
-      // No email delivery is configured. In development the link is returned
-      // once so it can be shared by hand. It is never returned in production,
-      // and the token is never logged. The token sits in the URL fragment, so
-      // it is not sent to any server until the user accepts.
-      ...(process.env.NODE_ENV !== "production"
-        ? { devAcceptUrl: `${origin}/invite#${token}` }
-        : {}),
+      // No email delivery is configured, so the accept link is returned once
+      // to the inviting admin to share by hand. Only the hash of the token is
+      // stored, so it cannot be shown again, and it is never logged. The token
+      // sits in the URL fragment, so it is not sent to any server until the
+      // invited user accepts.
+      devAcceptUrl: `${origin}/invite#${token}`,
     },
     201,
   );
