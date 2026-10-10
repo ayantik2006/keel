@@ -1,26 +1,169 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+  --color-ink: #111111;
+  --color-muted: #6b6b68;
+  --color-border: #e5e5e0;
+  --color-code: #f0f0ec;
+  --color-accent: #f2762e;
+  --color-accent-soft: #fdece0;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-sans: var(--font-raleway);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+
+  --animate-blink: blink 1.1s step-end infinite;
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-dash: dash 3.5s linear infinite;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+  --animate-select-in: select-in 0.12s ease-out both;
+  --animate-drawer-in: drawer-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-view-in: view-in 0.2s ease-out both;
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -200;
+    }
+  }
+  @keyframes drawer-in {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  @keyframes select-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  /* Opacity only, so no transform containing block is left on the element. */
+  @keyframes view-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.35;
+    }
+    50% {
+      opacity: 1;
+    }
   }
 }
 
+html {
+  background: var(--color-background);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-ink);
+  background-image:
+    linear-gradient(to right, rgba(17, 17, 17, 0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 17, 17, 0.028) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-position: center top;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Scrollable but without a visible scrollbar, such as horizontal tab strips. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Modal dialogs ease in. :where() keeps specificity at zero so a utility
+   animation, such as the mobile drawer, still wins. */
+@layer base {
+  :where(dialog[open]) {
+    animation: dialog-in 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  :where(dialog[open])::backdrop {
+    animation: view-in 0.18s ease-out both;
+  }
+}
+
+/* Scroll reveal, driven by the Reveal component. */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal[data-in] {
+  opacity: 1;
+  transform: none;
+}
+@media (scripting: none) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  :where(dialog[open]),
+  :where(dialog[open])::backdrop {
+    animation: none;
+  }
 }
