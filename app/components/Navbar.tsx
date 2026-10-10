@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Show, SignUpButton, UserButton } from "@clerk/nextjs";
 import GitHubIcon from "./GitHubIcon";
 import { Logo } from "./Logo";
+import { GITHUB_URL } from "@/lib/site";
 import Divider from "./Divider";
 import EncryptedText from "./EncryptedText";
 
@@ -69,7 +70,9 @@ export default function Navbar() {
             </Link>
           </nav>
           <a
-            href="#"
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="GitHub"
             className="text-muted transition-opacity hover:opacity-60"
           >
@@ -165,7 +168,9 @@ export default function Navbar() {
             </span>
           </Link>
           <a
-            href="#"
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-3 border-b border-border py-5 text-[18px] font-medium"
           >
             <GitHubIcon className="h-5 w-5 text-muted" />

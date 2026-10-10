@@ -2,6 +2,15 @@
   "name": "@ayantik2006/keel",
   "version": "0.1.2",
   "description": "Command line interface for the Keel clone: authenticate, manage secrets, and run commands with secrets injected.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayantik2006/keel.git",
+    "directory": "cli"
+  },
+  "homepage": "https://github.com/ayantik2006/keel#readme",
+  "bugs": {
+    "url": "https://github.com/ayantik2006/keel/issues"
+  },
   "type": "module",
   "bin": {
     "keel": "dist/index.js"

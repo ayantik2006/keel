@@ -5,6 +5,7 @@ export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://keel.hoardspace.in"
 ).replace(/\/+$/, "");
 
+export const GITHUB_URL = "https://github.com/ayantik2006/keel";
 export const SITE_NAME = "Keel";
 export const PUBLISHER_NAME = "HoardSpace";
 export const OG_IMAGE = {

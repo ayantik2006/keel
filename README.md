@@ -39,6 +39,8 @@ Built with Next.js (App Router), Clerk for authentication, and MongoDB for stora
 ### Install
 
 ```bash
+git clone https://github.com/ayantik2006/keel.git
+cd keel
 npm install
 cp .env.example .env.local
 ```

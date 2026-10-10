@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Show, SignUpButton } from "@clerk/nextjs";
 import GitHubIcon from "./GitHubIcon";
 import Divider from "./Divider";
+import { GITHUB_URL } from "@/lib/site";
 import EncryptedText from "./EncryptedText";
 
 export default function FinalCTA() {
@@ -35,7 +36,9 @@ export default function FinalCTA() {
             </Link>
           </Show>
           <a
-            href="#"
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 border border-[#B8B8B2] px-5 py-2 text-[14px] font-medium text-ink transition-colors hover:border-ink"
           >
             <GitHubIcon className="h-4 w-4" />
