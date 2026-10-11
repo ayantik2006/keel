@@ -1,6 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Raleway, Geist_Mono, DM_Serif_Display } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import SideRails from "./components/SideRails";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
@@ -62,6 +63,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${raleway.variable} ${geistMono.variable} ${display.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-K87XDEQPCV"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-K87XDEQPCV');
+          `}
+        </Script>
         <ClerkProvider>
           <SideRails />
           {children}
